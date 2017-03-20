@@ -1,0 +1,29 @@
+
+<h2> {{portfolio}} </h2>
+
+
+<div class="nav-div" class="container ">
+    <nav class="port-nav" >
+	   <!-- Maybe add a script and set var to {{type}}?
+	   <a class="nav-link" ng-repeat="type in types" ng-click="typeFilter.type='{{type}}'">{{type}}</a> -->
+	    <a class="nav-link" ng-click="typeFilter.type=''"> All</a>
+	   <a class="nav-link" ng-click="typeFilter.type='Java'"> Java</a>
+	   <a class="nav-link" ng-click="typeFilter.type='Angular'"> Angular</a>
+		<a class="nav-link" ng-click="typeFilter.type='c'"> C/C++</a>
+	</nav>      
+</div>
+
+</br>
+<div>
+	<div class="portfolio-container" >
+		<div class="item" ng-repeat="app in apps | filter:typeFilter">
+			<p>{{app.title | uppercase}}</p>
+			<p>{{app.developer}}</p>
+			<p> {{app.type }} </br> </br>{{app.url}} </p>
+			<img ng-if="app.url == 'none'" ng-src="{{app.icon}}">
+			<a ng-if="app.url != 'none'" ng-href="{{app.url}}" target="_blank"><img ng-src="{{app.icon}}">
+			</a>
+		</div>
+	</div>
+</div>
+
