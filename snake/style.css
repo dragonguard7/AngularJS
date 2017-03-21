@@ -4,9 +4,17 @@ body {
     font-family: Verdana;
 }
 
+.best-container {
+   /* min-width: 600px; */
+   width: 600px;
+    margin: auto;
+    background-color: #ACCFCC;
+}
+
 .container {
-    min-width: 600px;
-    margin: 10px;
+   /* min-width: 600px; */
+   width: 600px;
+    margin: auto;
 }
 
 .scoresContainer {

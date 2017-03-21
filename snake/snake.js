@@ -1,5 +1,5 @@
 
-app.controller('SnakeController', ['$scope', '$timeout', '$window', function ($scope, $timeout, $window) {
+app.controller('SnakeController', ['$scope', '$timeout', '$window', '$state', function ($scope, $timeout, $window, $state) {
 
     var snake, apple, interval, immortalTickInterval, immortalChecker;
 
@@ -37,9 +37,9 @@ app.controller('SnakeController', ['$scope', '$timeout', '$window', function ($s
     }
 
     $scope.startNewGame = function () {
+    	$state.go('game');
 		$scope.inGame = true;
-		initGame();
-        
+		initGame();      
         resetImmortal();
         initSnake();
         initBoard();
@@ -178,7 +178,7 @@ app.controller('SnakeController', ['$scope', '$timeout', '$window', function ($s
         if ($scope.game.currentScore > $scope.game.highScore) {
             $scope.game.highScore = $scope.game.currentScore;
         }
-        //startNewGame();// todo - show game over popup
+        $state.go('end');
 		$scope.inGame = false;
     }
 
@@ -187,7 +187,7 @@ app.controller('SnakeController', ['$scope', '$timeout', '$window', function ($s
         if ($scope.game.currentScore > $scope.game.highScore) {
             $scope.game.highScore = $scope.game.currentScore;
         }
-        //startNewGame();// todo - show win popup
+        $state.go('end');
 		$scope.inGame = false;
     }
 

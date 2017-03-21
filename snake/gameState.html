@@ -1,0 +1,15 @@
+<div>
+
+  <div class="score-container">Score: {{game.currentScore}}</div>
+        
+  <div class="immortal-timer" ng-show="game.timeout > 0">Immortal mode expires in <span class="iddqd">{{game.timeout}}</span> sec</div>
+  <div><span>Go through walls?: </span><input type="checkbox" ng-model="passThrough">{{passThrough}}</div>
+
+	
+</div>
+<div class="row" ng-repeat="column in board">
+    <div ng-repeat="row in column track by $index" 
+    	 class="column" 
+    	 ng-style="{'background-color':getColor($index, $parent.$index)}">
+    </div>
+</div>
