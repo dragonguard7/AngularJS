@@ -1,29 +1,29 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>AngularJS Snake</title>
-	
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
-	<script src="http://code.angularjs.org/1.2.1/angular-route.min.js"></script>
-	<script src="angular-ui-router.min.js"></script>
-	
-	<script type="text/javascript" src="app.js"></script>
-	<script type="text/javascript" src="snake.js"></script>
-	 <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.5/angular-material.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css"/>
-</head>
-<body ng-app="snakeApp" ng-controller="SnakeController">
-	<div class="container" >
-	
-	    <div class="best-container">
-		    <h2>AngularJS Snake</h2>
-		    <p>Max score: {{game.highScore}}<br/></p>
-	    </div>
-	    
-	    <div ui-view>
-	    </div>
-	</div>
+<html ng-app="MyApp">
 
+  <head>
+    <title>my app</title>
+    <style>ul { padding-left: 0; } li { list-style: none; }</style>
+    <script data-require="angular.js@*" data-semver="1.3.7" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.7/angular.js"></script>
+    <script src="angular-ui-router.min.js"></script>
+    <script>
+      document.write('<base href="'+ document.location.pathname +'" />')
+    </script>
+    <script src="app.js"></script>
+	<script src="snakeController.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css"/>
+  </head> 
 
-</body>
+  <body>
+    <nav>
+      <a href="#/home">#/main</a>
+	  <a href="#/home/settings">#/main/settings</a>
+      <a href="#/home/gameState">#/main/gameState</a>
+      <a href="#/home/endState">#/main/endState</a>
+    </nav>
+    
+    <div ui-view=""></div>
+
+  </body> 
+
 </html>

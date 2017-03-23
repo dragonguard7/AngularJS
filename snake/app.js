@@ -1,28 +1,43 @@
-"use strict";
+var app = angular
+  .module('MyApp', [
+    'ui.router'
+  ])
+.config(['$stateProvider', '$urlRouterProvider',
+function ($stateProvider, $urlRouterProvider) {
 
-var app = angular.module('snakeApp', ['ui.router']);
-
-app.config(function($stateProvider, $urlRouterProvider) {
-    
     $urlRouterProvider.otherwise('/home');
-    
-    $stateProvider
-        
-        // HOME STATES AND NESTED VIEWS ========================================
-        .state('home', {
-            url: '/home',
-            templateUrl: 'snake.html',
-        })
-        .state('game', {
-            url: '/game',
-            templateUrl: 'gameState.html',
-        })
-        .state('end', {
-            url: '/end',
-            templateUrl: 'endState.html',
-        });
-            // nested list with custom controller
-		
-    });
 
-	
+    $stateProvider
+        // States
+     .state("home", {
+          controller:'mainController',
+          url:"/home",
+          templateUrl: "snake.html"
+      })  
+	  .state("home.settings", {
+          controller:'mainController',
+          parent: 'home',
+          url:"/settings",
+          templateUrl: 'settings.html'
+      }) 
+      .state("home.gameState", {
+          controller:'mainController',
+          parent: 'home',
+          url:"/gameState",
+          templateUrl: 'gameState.html'
+      })  
+      .state("home.endState", {
+          controller:'mainController',
+          parent: 'home',
+          url: "/endState",
+          templateUrl: 'EndState.html'
+      })  
+}])
+;
+app.run(
+    ['$rootScope', '$state', '$stateParams',
+      function ($rootScope, $state, $stateParams) {
+          $rootScope.$state = $state;
+          $rootScope.$stateParams = $stateParams;
+      }
+    ])

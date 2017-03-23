@@ -1,15 +1,18 @@
 <div>
+  <h5>Child state FORM 1</h5>
 
-  <div class="score-container">Score: {{game.currentScore}}</div>
-        
-  <div class="immortal-timer" ng-show="game.timeout > 0">Immortal mode expires in <span class="iddqd">{{game.timeout}}</span> sec</div>
-  <div><span>Go through walls?: </span><input type="checkbox" ng-model="passThrough">{{passThrough}}</div>
-
-	
-</div>
-<div class="row" ng-repeat="column in board">
+  <div>Go through walls?: <input type="checkbox" ng-model="Game.passThrough">{{Game.passThrough}}</div>
+    <div>Go immortal?: <input type="checkbox" ng-model="Game.immortal">{{Game.immortal}}</div>
+  <div class="score-container">Score: {{Game.currentScore}}</div>
+  <div class="score-container">Speed: {{Game.speed}}</div>    
+  <div class="score-container">Size: {{Game.size}}</div>   
+  
+  
+  <div class="row" ng-repeat="column in Game.board">
     <div ng-repeat="row in column track by $index" 
-    	 class="column" 
-    	 ng-style="{'background-color':getColor($index, $parent.$index)}">
+    	 class="column" ng-style="{'background-color':getColor($index, $parent.$index)}"
+    	 > 
     </div>
+</div>
+  <pre>{{Game}}</pre>
 </div>

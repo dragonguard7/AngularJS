@@ -1,14 +1,23 @@
 <div class="snakeContainer" class="row">
 
-    <div class="scoresContainer">
-	<div><span>Select speed (0-100): </span><input type="text" size="10" ng-model="speed" ng-hide="inGame"></div>
-		
-		<div><span>Select board size (20 max): </span><input type="text" size="10" ng-model="size" ng-hide="inGame"></div>
-		<div><span>Go through walls?: </span><input type="checkbox" ng-model="passThrough">{{passThrough}}</div>
-		<button ng-model="start" ng-click="startNewGame()"> Start Game </button>
+<div class="best-container">
+		 <h2>AngularJS Snake</h2>
+		 <p>Max score: {{Game.highScore}}<br/></p>
+		 <p>Games played: {{Game.totalGames}}<br/></p>
+		 
 
-
-    </div>
-		
+  
+  <hr />
+  </div>
+  <div ui-view=""></div>
+  
+   <h3>current state name: <var>{{$state.current.name}}</var></h3>
+<!--
+  state
+  <pre>{{$state.current | json}}</pre>
+  --> 
+  Game
+  <pre>{{Game | json}}</pre>
+ 
 
 </div>
