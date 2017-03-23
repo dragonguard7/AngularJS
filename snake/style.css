@@ -2,19 +2,22 @@ body {
     background-color: #B8AE9C;
     color: #595241;
     font-family: Verdana;
+
 }
 
 .best-container {
    /* min-width: 600px; */
-   width: 600px;
+   width: 80%;
     margin: auto;
     background-color: #ACCFCC;
+    text-align: center;
 }
 
 .container {
    /* min-width: 600px; */
-   width: 600px;
+   width: 80%;
     margin: auto;
+    text-align: center;
 }
 
 .scoresContainer {
@@ -23,7 +26,7 @@ body {
 
 .snakeContainer {
     margin: auto;
-    width: 600px;
+    width: 80%;
 }
 
 .row {
@@ -37,7 +40,8 @@ body {
     display: inline-block;
 }
 
-.iddqd{
-    font-weight: bold;
-    color:#7f203B;
+
+a, a:hover, a:visited{
+	text-decoration: none;
+	color: black;
 }

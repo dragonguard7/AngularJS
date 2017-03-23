@@ -5,7 +5,7 @@ var app = angular
 .config(['$stateProvider', '$urlRouterProvider',
 function ($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.otherwise('/home');
+    $urlRouterProvider.otherwise('/home/settings');
 
     $stateProvider
         // States
@@ -30,7 +30,7 @@ function ($stateProvider, $urlRouterProvider) {
           controller:'mainController',
           parent: 'home',
           url: "/endState",
-          templateUrl: 'EndState.html'
+          templateUrl: 'endState.html'
       })  
 }])
 ;

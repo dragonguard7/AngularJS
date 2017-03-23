@@ -1,17 +1,20 @@
 <div>
+  
+  <div class="score-container"><h3>Score: {{Game.currentScore}} </h3></div>
+
 
   <div>Go through walls?: <input type="checkbox" ng-model="Game.passThrough">{{Game.passThrough}}</div>
     <div>Go immortal?: <input type="checkbox" ng-model="Game.immortal">{{Game.immortal}}</div>
-  <div class="score-container">Score: {{Game.currentScore}}</div>
+
+<!--  
   <div class="score-container">Speed: {{Game.speed}}</div>    
   <div class="score-container">Size: {{Game.size}}</div>   
-  
+  -->
   
   <div class="row" ng-repeat="column in Game.board">
     <div ng-repeat="row in column track by $index" 
-    	 class="column" ng-style="{'background-color':getColor($index, $parent.$index)}"
-    	 > 
+    	 class="column" ng-style="{'background-color':getColor($index, $parent.$index)}"> 
     </div>
 </div>
-  <pre>{{Game}}</pre>
+
 </div>

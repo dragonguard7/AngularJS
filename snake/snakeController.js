@@ -1,21 +1,19 @@
 'use strict';
 
 app.controller('mainController', 
-                                  function ($scope, $timeout, $state ) {
+                                  function ($scope, $timeout, $state, $window ) {
     
 	//Direction control
-	var LEFT = 37,
-    	UP = 38,
-    	RIGHT = 39,
-    	DOWN = 40,
+	var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40,
+		MAXSIZE = 20, MINSIZE = 5, MAXSPEED = 100, MINSPEED=0,
+    	apple = {},
     	interval = 100;
 	
 	$scope.Game = $scope.Game || {
-		temp : 5,
-		highScore : 5,
+		highScore : 0,
 		totalGames : 0,
-		size : 8,
-		speed : 75,
+		size : 10,
+		speed : 70,
 		passThrough : false,
 		currentScore : 0,
 		immortal: false,
@@ -25,13 +23,12 @@ app.controller('mainController',
 	
 	
 	$scope.startNewGame = function () {
-    	$scope.Game.totalGames++;
+    	initSettings();
     	$state.go('home.gameState');
 		initSnake();
     	initBoard();
 		generateApple();
-		//$scope.inGame = true; 
-        interval = $scope.Game.speed * -2.5 + 300;
+        interval = $scope.Game.speed * -2 + 250;
         $timeout(runGame, interval);
 
     };
@@ -57,37 +54,49 @@ app.controller('mainController',
         $scope.Game.snake = {
             body: [{x: 1, y: 0}, {x: 0, y: 0}],
             direction: RIGHT,
-            pendingDirection: RIGHT
+            pendingDirection: DOWN
         };
     }
+    
+	function initSettings() {	 
+		if($scope.Game.size > MAXSIZE){ $scope.Game.size = MAXSIZE;}
+		if($scope.Game.size < MINSIZE){ $scope.Game.size = MINSIZE;}
+		if($scope.Game.speed > MAXSPEED) {$scope.Game.speed = MAXSPEED;}
+		if($scope.Game.speed < MINSPEED) {$scope.Game.speed = MINSPEED;}
+        $scope.Game.totalGames++;
+        $scope.Game.immortal = false;	
+		$scope.Game.currentScore = 0;
+    }
+    
 //*********** Main loop
     function runGame(){
     	var newHead = nextMove();
     	
-        if (checkHitWall(newHead) && !$scope.Game.passThrough) {
-            gameOver();
-            return;
-        }
-        /*
-        if (!$scope.game.immortal && checkHitBody(newHead)) {
-            gameOver();
-            return;
-        }
-        */
+    	if(!$scope.Game.immortal){
+	        if (checkHitWall(newHead) && !$scope.Game.passThrough) {
+	            gameOver();
+	            return;
+	        }
+	        
+	        if (hitSnake(newHead)) {
+	            gameOver();
+	            return;
+	        }
+    	}
         
         $scope.Game.snake.body.unshift(newHead);
         $scope.Game.board[newHead.x][newHead.y] = 'snake';
-        /*
+        
         if (checkHitApple(newHead)) {
             eatApple();
         }
-        */
+        
         var tail = $scope.Game.snake.body.pop();
         
         $scope.Game.board[tail.x][tail.y] = hitSnake(tail) ? 'snake' : 'board';
-        /*
-        snake.direction = snake.pendingDirection;
         
+        $scope.Game.snake.direction = $scope.Game.snake.pendingDirection;
+        /*
         if (limitReached()) {
             //win();
         } else {
@@ -109,7 +118,7 @@ app.controller('mainController',
         } else if ($scope.Game.snake.pendingDirection === DOWN) {
             newHead.y++;
         }
-        if ($scope.Game.passThrough) {
+        if ($scope.Game.passThrough || $scope.Game.immortal) {
             if (newHead.x < 0 || newHead.x >= $scope.Game.size) {
                 newHead.x = (newHead.x + $scope.Game.size) % $scope.Game.size;
             }
@@ -120,24 +129,57 @@ app.controller('mainController',
         return newHead;
     }
     
+    $scope.moveSnake = function(direction){
+    	if(direction.which == RIGHT){
+    		
+    	}
+    	
+    }
+    
+    $window.addEventListener("keydown", function (e) {
+        var keyCode = e.keyCode;
+        if (keyCode === LEFT && $scope.Game.snake.direction !== RIGHT) {
+        	$scope.Game.snake.pendingDirection = LEFT;
+        } else if (keyCode === UP && $scope.Game.snake.direction !== DOWN) {
+        	$scope.Game.snake.pendingDirection = UP;
+        } else if (keyCode === RIGHT && $scope.Game.snake.direction !== LEFT) {
+        	$scope.Game.snake.pendingDirection = RIGHT;
+        } else if (keyCode === DOWN && $scope.Game.snake.direction !== UP) {
+        	$scope.Game.snake.pendingDirection = DOWN;
+        } else {
+            //checkImmortal(e);
+        }
+
+    });
+    
 	
-//***********Helper functions	
+//***********Helper functions
+    //*********Generate, collision, and consumption
     function generateApple() {
-        var apple = {
+        apple = {
             x: Math.floor(Math.random() * $scope.Game.size),
             y: Math.floor(Math.random() * $scope.Game.size)
         };
-        
-        $scope.Game.board[apple.x][apple.y] = 'apple';
-        /*
+           
         if (hitSnake(apple)) {
             generateApple();
         } else {
-            $scope.board[apple.x][apple.y] = 'apple';
+            $scope.Game.board[apple.x][apple.y] = 'apple';
         }
-        */
-        
+           
     }
+    
+    function checkHitApple(head) {
+        return head.x === apple.x && head.y === apple.y;
+    }
+    
+    function eatApple() {
+        $scope.Game.currentScore++;
+        var tail = angular.copy($scope.Game.snake.body[$scope.Game.snake.body.length - 1]);
+        $scope.Game.snake.body.push(tail);
+        generateApple();
+    }
+    
     
     function hitSnake(point) {
         var i, len;
