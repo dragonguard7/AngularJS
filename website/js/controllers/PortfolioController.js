@@ -1,63 +1,88 @@
 app.controller('portfolioController', function($scope){
    $scope.portfolio = "Portfolio";
 
+
+   $scope.setSelectedImage = function(image){
+	   $scope.selectedImage = image;
+   }
+   
+   $scope.popUp = false;
+   $scope.togglePopUp = function() {
+	   $scope.popUp = !$scope.popUp;
+	   
+   };
+     
    $scope.types = ["All", "java", "angular", "C", "C++"];
-   $scope.apps = [ 
+   $scope.images = [ 
 	  { 
-	    icon: 'img/move.jpg', 
-	    title: 'MOVE', 
-	    developer: 'MOVE, Inc.',
-		type: "Java",
-		url: "none"
+	    icon: 'img/snake.jpg', 
+	    title: 'Snake', 
+	    description: 'Slither around, eat and grow!',
+		type: "Angular",
+		url: "portfolio_projects/snake/index.html"
 	  }, 
 	  { 
 	    icon: 'img/carousel.jpg', 
 	    title: 'Carousel', 
-	    developer: 'Me',
+	    description: 'Look through pictures in style',
 		type: "Angular",
 		url: "portfolio_projects/Carousel/index.html"
 	  },
 	  {
-	    icon: 'img/gameboard.jpg',
-	    title: 'Gameboard',
-	    developer: 'Armando P.',
+	    icon: 'img/SeniorDesignProject.jpg',
+	    title: 'Senior Design Project',
+	    description: 'Self flying, tracking airplane',
 		type: "C",
-		url: "none"
+		url: "http://www.eecs.ucf.edu/seniordesign/fa2012sp2013/g02/"
 	  },
 	  {
-	    icon: 'img/forecast.jpg',
-	    title: 'Forecast',
-	    developer: 'Forecast',
+	    icon: 'img/breakout.jpg',
+	    title: 'Breakout',
+	    description: 'Destroy all the bricks',
 		type: "Java",
-		url: "none"
+		url: "No link"
 	  }, 
 	  { 
-	    icon: 'img/drjekyllmrhyde.jpg', 
-	    title: 'Dr. Jekyll and Mr. Hyde', 
-	    developer: 'Chico Dusty',
+	    icon: 'img/hitori.jpg', 
+	    title: 'Hitori Solver', 
+	    description: 'Give it a puzzle to solve',
 		type: "Java",
-		url: "none"
+		url: "No link"
 	  },
 	  {
-	    icon: 'img/metamorphosis.jpg',
-	    title: 'Metamorphosis',
-	    developer: 'Armando P.',
+	    icon: 'img/linkList.jpg',
+	    title: 'Linked list',
+	    description: 'Adjust the list to your desire',
 		type: "C++",
-		url: "none"
+		url: "No link"
 	  },
 	  {
-	    icon: 'img/heartofdarkness.jpg',
-	    title: 'Heart of Darkness',
-	    developer: 'Forecast',
-		type: "C",
-		url: "none"
+		icon: 'img/mazeRunner.jpg',
+		title: 'Maze Runner',
+		description: 'Look for the goal!',
+		type: "Java",
+		url: "No link"
+	  },
+	  {
+	    icon: 'img/RPG.jpg',
+	    title: 'Tile RPG',
+	    description: 'Explore the world!',
+		type: "Java",
+		url: "No link"
 	  },
 	  {
 	    icon: 'img/reader.jpg',
 	    title: 'Reader',
-	    developer: 'Me',
+	    description: 'Navigate through books',
 		type: "Angular",
 		url: "portfolio_projects/Reader/index.html"
+	  },
+	  { 
+		    icon: 'img/sudoku.jpg', 
+		    title: 'Sudoku Solver', 
+		    description: 'Give it a puzzle to solve',
+			type: "Java",
+			url: "No link"
 	  }
 	];
 

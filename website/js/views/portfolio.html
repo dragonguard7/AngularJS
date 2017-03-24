@@ -16,14 +16,31 @@
 </br>
 <div>
 	<div class="portfolio-container" >
-		<div class="item" ng-repeat="app in apps | filter:typeFilter">
-			<p>{{app.title | uppercase}}</p>
-			<p>{{app.developer}}</p>
-			<p> {{app.type }} </br> </br>{{app.url}} </p>
-			<img ng-if="app.url == 'none'" ng-src="{{app.icon}}">
-			<a ng-if="app.url != 'none'" ng-href="{{app.url}}" target="_blank"><img ng-src="{{app.icon}}">
-			</a>
+		<div class="item" ng-repeat="image in images | filter:typeFilter" >
+			<p>{{image.title | uppercase}}</p>
+			<p>{{image.description}}</p>
+			<p> {{image.type }} </br></p>
+			<div ng-if="image.url == 'No link'">
+				<p>{{image.url}} </p>
+				<img class="preview" ng-click="togglePopUp(); setSelectedImage(image)" ng-src="{{image.icon}}">				
+			
+			</div>
+			
+			<div ng-if="image.url != 'No link'">
+				<p> Click below to view project! </p>
+				<a ng-href="{{image.url}}" target="_blank"><img class="preview" ng-src="{{image.icon}}">	</a>
+			</div>
+			
+					<!--  This is the hidden element which will pop up when user clicks a non-linked project -->
+			<div class="modal" ng-show="popUp">
+				<span class="close" ng-click="togglePopUp()">X</span>
+				 <img class="modal-content"  ng-src="{{selectedImage.icon}}">
+				<div id="caption">{{selectedImage.description}}</div>
+			</div>
+		
 		</div>
+		
+			
 	</div>
 </div>
 
